@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Employee Portal</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR USING LIST -->
+<nav class="navbar">
+  <div class="logo">Employee Portal</div>
+
+  <ul class="nav-list">
+    <li><a href="home.html">Home</a></li>
+    <li><a href="employees.html">Employees</a></li>
+    <li><a href="departments.html">Departments</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<hr>
+
+<!-- EMPLOYEE TABLE -->
+<table border="1" width="100%">
+
+<thead>
+<tr>
+  <th colspan="6">EMPLOYEE DETAILS</th>
+</tr>
+
+<tr>
+  <th>ID</th>
+  <th>Name</th>
+  <th>Department</th>
+  <th>Salary</th>
+  <th>Status</th>
+  <th>Action</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+  <td>101</td>
+  <td>Rahul</td>
+  <td>IT</td>
+  <td>50000</td>
+  <td>Active</td>
+  <td>
+     <a href="#">Edit</a> |
+     <a href="#">Delete</a>
+  </td>
+</tr>
+
+<tr>
+  <td>102</td>
+  <td>Amit</td>
+  <td>HR</td>
+  <td>40000</td>
+  <td>Inactive</td>
+  <td>
+     <a href="#">Edit</a> |
+     <a href="#">Delete</a>
+  </td>
+</tr>
+
+<tr>
+  <td>103</td>
+  <td>Neha</td>
+  <td>Finance</td>
+  <td>45000</td>
+  <td>Active</td>
+  <td>
+     <a href="#">Edit</a> |
+     <a href="#">Delete</a>
+  </td>
+</tr>
+
+</tbody>
+
+<tfoot>
+<tr>
+  <td colspan="6">Total Employees: 3</td>
+</tr>
+</tfoot>
+
+</table>
+
+<hr>
+
+<!-- ADD EMPLOYEE FORM -->
+
+<h3>Add New Employee</h3>
+
+<form>
+
+Name:<br>
+<input type="text" name="name" required placeholder="Enter name"><br><br>
+
+Email:<br>
+<input type="email" name="email" required><br><br>
+
+Password:<br>
+<input type="password" name="password" minlength="6" required><br><br>
+
+Mobile:<br>
+<input type="tel" name="mobile" pattern="[0-9]{10}" placeholder="10 digit" required><br><br>
+
+Gender:<br>
+<input type="radio" name="gender" value="Male"> Male
+<input type="radio" name="gender" value="Female"> Female
+<br><br>
+
+Department:<br>
+<select name="department" required>
+  <option value="">-- Select Department --</option>
+  <option value="IT">IT</option>
+  <option value="HR">HR</option>
+  <option value="Finance">Finance</option>
+</select>
+<br><br>
+
+Skills:<br>
+<input type="checkbox" name="skills" value="HTML"> HTML
+<input type="checkbox" name="skills" value="CSS"> CSS
+<input type="checkbox" name="skills" value="JS"> JS
+<br><br>
+
+Address:<br>
+<textarea name="address" rows="4" cols="50"></textarea>
+<br><br>
+
+<input type="submit" value="Add Employee">
+
+</form>
+
+<hr>
+
+<!-- LIST SECTION -->
+
+<h3>Departments</h3>
+
+<ul>
+  <li>IT
+     <ul>
+        <li>Developer</li>
+        <li>Tester</li>
+     </ul>
+  </li>
+
+  <li>HR</li>
+  <li>Finance</li>
+</ul>
+
+</body>
+</html>

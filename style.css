@@ -1,0 +1,312 @@
+/* =====================================
+   GLOBAL SETTINGS
+===================================== */
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:'Segoe UI', Arial;
+  background:#eef2f7;
+  color:#333;
+}
+
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* ===== NAVBAR CONTAINER ===== */
+.navbar {
+  background: linear-gradient(to right, #0f172a, #1e293b);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* ===== LOGO ===== */
+.logo {
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* ===== HORIZONTAL LIST ===== */
+.nav-list {
+  list-style: none;
+  display: flex;              /* MAIN MAGIC LINE */
+  gap: 25px;
+}
+
+/* ===== LINKS ===== */
+.nav-list li a {
+  text-decoration: none;
+  color: #e2e8f0;
+  font-size: 16px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+/* ===== HOVER EFFECT ===== */
+.nav-list li a:hover {
+  background-color: #2563eb;
+  color: white;
+}
+
+/* ===== ACTIVE PAGE STYLE ===== */
+.nav-list li a.active {
+  background-color: #16a34a;
+  color: white;
+}
+
+/* ===== RESPONSIVE FOR MOBILE ===== */
+@media(max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .nav-list li {
+    margin: 5px 0;
+  }
+}
+
+/* =====================================
+   CONTAINER
+===================================== */
+
+.container{
+  width:92%;
+  margin:auto;
+  margin-top:20px;
+}
+
+/* =====================================
+   CARD
+===================================== */
+
+.card{
+  background:white;
+  padding:15px;
+  border-radius:8px;
+  box-shadow:0 0 10px rgba(0,0,0,.1);
+  margin-bottom:20px;
+}
+
+/* =====================================
+   HEADINGS
+===================================== */
+
+h2{
+  border-left:5px solid #1e3a8a;
+  padding-left:10px;
+}
+
+/* =====================================
+   TABLE DESIGN
+===================================== */
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+  border-radius:8px;
+  overflow:hidden;
+}
+
+th{
+  background:#1e3a8a;
+  color:white;
+  padding:12px;
+}
+
+td{
+  padding:10px;
+  text-align:center;
+}
+
+tr:nth-child(even){
+  background:#f8fafc;
+}
+
+tr:hover{
+  background:#e0e7ff;
+  transition:.3s;
+}
+
+tfoot td{
+  background:#1e3a8a;
+  color:white;
+  font-weight:bold;
+}
+
+/* =====================================
+   STATUS BADGES
+===================================== */
+
+.active{
+  background:#dcfce7;
+  color:green;
+  padding:4px 8px;
+  border-radius:20px;
+}
+
+.inactive{
+  background:#fee2e2;
+  color:red;
+  padding:4px 8px;
+  border-radius:20px;
+}
+
+/* =====================================
+   BUTTONS
+===================================== */
+
+.btn{
+  border:none;
+  padding:6px 12px;
+  border-radius:6px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.edit{
+  background:#16a34a;
+  color:white;
+}
+
+.delete{
+  background:#dc2626;
+  color:white;
+}
+
+.btn:hover{
+  opacity:.8;
+}
+
+/* =====================================
+   FORM DESIGN
+===================================== */
+
+form{
+  background:white;
+  padding:20px;
+  border-radius:8px;
+  box-shadow:0 0 10px rgba(0,0,0,.1);
+}
+
+input, select, textarea{
+  width:100%;
+  padding:10px;
+  margin:6px 0;
+  border:1px solid #ccc;
+  border-radius:6px;
+}
+
+input:focus, select:focus{
+  outline:none;
+  border:1px solid #1e3a8a;
+}
+
+label{
+  font-weight:600;
+}
+
+.submit{
+  background:#1e3a8a;
+  color:white;
+  padding:10px;
+  border:none;
+  border-radius:6px;
+}
+
+/* =====================================
+   LIST SECTION
+===================================== */
+
+.dept ul{
+  list-style:none;
+  padding:0;
+}
+
+.dept ul li{
+  background:#f1f5f9;
+  margin:5px 0;
+  padding:8px;
+  border-radius:6px;
+}
+
+/* =====================================
+   SEARCH BOX
+===================================== */
+
+.search{
+  width:300px;
+  padding:8px;
+  border-radius:20px;
+  border:1px solid #ccc;
+}
+
+/* =====================================
+   FOOTER
+===================================== */
+
+footer{
+  background:#1e3a8a;
+  color:white;
+  text-align:center;
+  padding:10px;
+  margin-top:20px;
+}
+
+/* =====================================
+   DASHBOARD CARDS
+===================================== */
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.box{
+  background:white;
+  padding:20px;
+  border-radius:8px;
+  text-align:center;
+  box-shadow:0 0 10px rgba(0,0,0,.1);
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media(max-width:768px){
+
+  nav ul{
+    flex-direction:column;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  table{
+    font-size:12px;
+  }
+}

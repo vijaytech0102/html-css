@@ -34,9 +34,9 @@ body{
 /* ===== LOGO ===== */
 .logo {
   color: white;
-  font-size: 22px;
+  font-size: 40px;
   font-weight: bold;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
 }
 
 /* ===== HORIZONTAL LIST ===== */

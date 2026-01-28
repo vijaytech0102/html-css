@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Railway Ticket Booking System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 700px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #1e3c72;
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .form-section {
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            color: #1e3c72;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #2a5298;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .required {
+            color: #e74c3c;
+            margin-left: 4px;
+        }
+        
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 8px rgba(42, 82, 152, 0.3);
+            background-color: #f8f9fa;
+        }
+        
+        input[type="text"]:disabled,
+        input[type="date"]:disabled,
+        input[type="number"]:disabled,
+        select:disabled {
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+            color: #999;
+        }
+        
+        /* Route section with swap button */
+        .route-container {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 15px;
+            align-items: flex-end;
+        }
+        
+        .route-field {
+            flex: 1;
+        }
+        
+        .swap-btn {
+            background-color: #2a5298;
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .swap-btn:hover {
+            background-color: #1e3c72;
+            transform: scale(1.05);
+        }
+        
+        /* Two column layout */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-row-full {
+            grid-column: 1 / -1;
+        }
+        
+        /* Checkbox and Radio styling */
+        .checkbox-group,
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .checkbox-item,
+        .radio-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        input[type="checkbox"],
+        input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #2a5298;
+        }
+        
+        .checkbox-item label,
+        .radio-item label {
+            margin-bottom: 0;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        /* Price display */
+        .price-info {
+            background-color: #e8f4f8;
+            border-left: 4px solid #2a5298;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .price-info.show {
+            display: block;
+        }
+        
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .price-row:last-child {
+            margin-bottom: 0;
+            padding-top: 10px;
+            border-top: 2px solid #2a5298;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .price-label {
+            color: #333;
+        }
+        
+        .price-value {
+            color: #2a5298;
+            font-weight: 600;
+        }
+        
+        /* Error and success messages */
+        .message {
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 14px;
+        }
+        
+        .message.show {
+            display: block;
+        }
+        
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        /* Buttons */
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        button {
+            flex: 1;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .search-btn {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+        }
+        
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(42, 82, 152, 0.4);
+        }
+        
+        .search-btn:active {
+            transform: translateY(0);
+        }
+        
+        .reset-btn {
+            background-color: #ecf0f1;
+            color: #333;
+        }
+        
+        .reset-btn:hover {
+            background-color: #bdc3c7;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .route-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .swap-btn {
+                width: 100%;
+            }
+            
+            .container {
+                padding: 25px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+        }
+        
+        /* Booking summary */
+        .booking-summary {
+            background-color: #f0f8ff;
+            border: 2px solid #2a5298;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .booking-summary.show {
+            display: block;
+        }
+        
+        .booking-summary h3 {
+            color: #1e3c72;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚂 Railway Ticket Booking</h1>
+            <p>Book your journey with ease and comfort</p>
+        </div>
+        
+        <div id="errorMessage" class="message error-message"></div>
+        <div id="successMessage" class="message success-message"></div>
+        
+        <form id="bookingForm">
+            
+            <!-- Route Section -->
+            <div class="form-section">
+                <div class="section-title">Journey Details</div>
+                
+                <div class="form-group">
+                    <label>Route <span class="required">*</span></label>
+                    <div class="route-container">
+                        <div class="route-field form-group" style="margin-bottom: 0;">
+                            <label style="margin-bottom: 6px; font-weight: 500; font-size: 12px;">From</label>
+                            <input 
+                                type="text" 
+                                id="from" 
+                                name="from" 
+                                placeholder="Departure station"
+                                required
+                                list="stations"
+                            >
+                            <datalist id="stations">
+                                <option value="Delhi (DEL)">
+                                <option value="Mumbai (BOM)">
+                                <option value="Bangalore (BNG)">
+                                <option value="Chennai (CHE)">
+                                <option value="Kolkata (KOL)">
+                                <option value="Hyderabad (HYD)">
+                                <option value="Pune (PUN)">
+                                <option value="Jaipur (JAI)">
+                            </datalist>
+                        </div>
+                        
+                        <button type="button" class="swap-btn" id="swapBtn" title="Swap routes">⇄</button>
+                        
+                        <div class="route-field form-group" style="margin-bottom: 0;">
+                            <label style="margin-bottom: 6px; font-weight: 500; font-size: 12px;">To</label>
+                            <input 
+                                type="text" 
+                                id="to" 
+                                name="to" 
+                                placeholder="Arrival station"
+                                required
+                                list="stations"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Travel Date -->
+            <div class="form-section">
+                <div class="form-group">
+                    <label for="travelDate">Travel Date <span class="required">*</span></label>
+                    <input 
+                        type="date" 
+                        id="travelDate" 
+                        name="travelDate" 
+                        required
+                    >
+                    <small style="color: #666; font-size: 12px; margin-top: 5px; display: block;">
+                        ℹ Past dates are not allowed
+                    </small>
+                </div>
+            </div>
+            
+            <!-- Class and Passengers Section -->
+            <div class="form-section">
+                <div class="section-title">Preferences</div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="trainClass">Train Class <span class="required">*</span></label>
+                        <select id="trainClass" name="trainClass" required onchange="updatePrice()">
+                            <option value="">-- Select Class --</option>
+                            <option value="ac-first">AC First Class</option>
+                            <option value="ac-2tier">AC 2 Tier</option>
+                            <option value="ac-3tier">AC 3 Tier</option>
+                            <option value="sleeper">Sleeper Class</option>
+                            <option value="general">General</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="passengers">Number of Passengers <span class="required">*</span></label>
+                        <input 
+                            type="number" 
+                            id="passengers" 
+                            name="passengers" 
+                            min="1" 
+                            max="6" 
+                            value="1"
+                            required
+                            onchange="updatePrice()"
+                        >
+                        <small style="color: #666; font-size: 12px; margin-top: 5px; display: block;">
+                            Maximum 6 passengers per booking
+                        </small>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Concession Section -->
+            <div class="form-section">
+                <div class="section-title">Concessions & Benefits</div>
+                
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input 
+                            type="checkbox" 
+                            id="seniorCitizen" 
+                            name="seniorCitizen"
+                            onchange="updatePrice()"
+                        >
+                        <label for="seniorCitizen">Senior Citizen (50+ years) - Get 40% discount</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input 
+                            type="checkbox" 
+                            id="studentConcession" 
+                            name="studentConcession"
+                            onchange="updatePrice()"
+                        >
+                        <label for="studentConcession">Student - Get 25% discount</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input 
+                            type="checkbox" 
+                            id="disabilityWelfare" 
+                            name="disabilityWelfare"
+                            onchange="updatePrice()"
+                        >
+                        <label for="disabilityWelfare">Person with Disability - Get 50% discount</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Price Breakdown -->
+            <div class="price-info" id="priceInfo">
+                <div class="price-row">
+                    <span class="price-label">Base Fare (per passenger)</span>
+                    <span class="price-value">₹<span id="baseFare">0</span></span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">Discount Applied</span>
+                    <span class="price-value" style="color: #27ae60;">-₹<span id="discountAmount">0</span></span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">GST (5%)</span>
+                    <span class="price-value">+₹<span id="gstAmount">0</span></span>
+                </div>
+                <div class="price-row">
+                    <span class="price-label">Total Amount</span>
+                    <span class="price-value">₹<span id="totalPrice">0</span></span>
+                </div>
+            </div>
+            
+            <!-- Payment Mode -->
+            <div class="form-section">
+                <div class="section-title">Payment Method</div>
+                
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input 
+                            type="radio" 
+                            id="creditCard" 
+                            name="paymentMode" 
+                            value="credit-card"
+                            required
+                        >
+                        <label for="creditCard">💳 Credit Card</label>
+                    </div>
+                    <div class="radio-item">
+                        <input 
+                            type="radio" 
+                            id="debitCard" 
+                            name="paymentMode" 
+                            value="debit-card"
+                            required
+                        >
+                        <label for="debitCard">💳 Debit Card</label>
+                    </div>
+                    <div class="radio-item">
+                        <input 
+                            type="radio" 
+                            id="netBanking" 
+                            name="paymentMode" 
+                            value="net-banking"
+                            required
+                        >
+                        <label for="netBanking">🏦 Net Banking</label>
+                    </div>
+                    <div class="radio-item">
+                        <input 
+                            type="radio" 
+                            id="upi" 
+                            name="paymentMode" 
+                            value="upi"
+                            required
+                        >
+                        <label for="upi">📱 UPI/Mobile Wallet</label>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Buttons -->
+            <div class="button-group">
+                <button type="submit" class="search-btn">🔍 Search & Book</button>
+                <button type="reset" class="reset-btn">Clear</button>
+            </div>
+        </form>
+        
+        <!-- Booking Summary -->
+        <div class="booking-summary" id="bookingSummary">
+            <h3>✓ Booking Confirmed</h3>
+            <div class="summary-item">
+                <span>Route:</span>
+                <span id="summaryRoute">-</span>
+            </div>
+            <div class="summary-item">
+                <span>Date:</span>
+                <span id="summaryDate">-</span>
+            </div>
+            <div class="summary-item">
+                <span>Class:</span>
+                <span id="summaryClass">-</span>
+            </div>
+            <div class="summary-item">
+                <span>Passengers:</span>
+                <span id="summaryPassengers">-</span>
+            </div>
+            <div class="summary-item">
+                <span>Total Amount:</span>
+                <span id="summaryAmount" style="color: #2a5298; font-weight: bold;">-</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const form = document.getElementById('bookingForm');
+        const travelDate = document.getElementById('travelDate');
+        const fromField = document.getElementById('from');
+        const toField = document.getElementById('to');
+        const swapBtn = document.getElementById('swapBtn');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+        const priceInfo = document.getElementById('priceInfo');
+        const bookingSummary = document.getElementById('bookingSummary');
+        
+        // Class pricing
+        const classPrice = {
+            'ac-first': 3500,
+            'ac-2tier': 2500,
+            'ac-3tier': 1500,
+            'sleeper': 800,
+            'general': 400
+        };
+        
+        // Set minimum date to today
+        function setMinDate() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            travelDate.min = `${year}-${month}-${day}`;
+        }
+        
+        // Swap From and To
+        swapBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const temp = fromField.value;
+            fromField.value = toField.value;
+            toField.value = temp;
+        });
+        
+        // Update price calculation
+        function updatePrice() {
+            const trainClass = document.getElementById('trainClass').value;
+            const passengers = parseInt(document.getElementById('passengers').value) || 1;
+            const seniorCitizen = document.getElementById('seniorCitizen').checked;
+            const student = document.getElementById('studentConcession').checked;
+            const disability = document.getElementById('disabilityWelfare').checked;
+            
+            if (!trainClass) {
+                priceInfo.classList.remove('show');
+                return;
+            }
+            
+            const baseFarePerPassenger = classPrice[trainClass];
+            const totalBaseFare = baseFarePerPassenger * passengers;
+            
+            let discountPercent = 0;
+            if (seniorCitizen) discountPercent = 40;
+            else if (student) discountPercent = 25;
+            else if (disability) discountPercent = 50;
+            
+            const discountAmount = (totalBaseFare * discountPercent) / 100;
+            const fareAfterDiscount = totalBaseFare - discountAmount;
+            const gstAmount = (fareAfterDiscount * 5) / 100;
+            const totalPrice = fareAfterDiscount + gstAmount;
+            
+            document.getElementById('baseFare').textContent = baseFarePerPassenger;
+            document.getElementById('discountAmount').textContent = Math.round(discountAmount);
+            document.getElementById('gstAmount').textContent = Math.round(gstAmount);
+            document.getElementById('totalPrice').textContent = Math.round(totalPrice);
+            
+            priceInfo.classList.add('show');
+        }
+        
+        // Form validation and submission
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Clear messages
+            errorMessage.classList.remove('show');
+            successMessage.classList.remove('show');
+            bookingSummary.classList.remove('show');
+            
+            // Validate from and to are different
+            if (fromField.value === toField.value) {
+                showError('From and To stations cannot be the same!');
+                return;
+            }
+            
+            // Validate date is in future
+            const selectedDate = new Date(travelDate.value);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            if (selectedDate < today) {
+                showError('Please select a future date for travel!');
+                return;
+            }
+            
+            // Validate passenger count
+            const passengers = parseInt(document.getElementById('passengers').value);
+            if (passengers < 1 || passengers > 6) {
+                showError('Number of passengers must be between 1 and 6!');
+                return;
+            }
+            
+            // If all validations pass
+            showBookingConfirmation();
+        });
+        
+        function showError(message) {
+            errorMessage.textContent = '❌ ' + message;
+            errorMessage.classList.add('show');
+        }
+        
+        function showBookingConfirmation() {
+            const from = fromField.value;
+            const to = toField.value;
+            const date = new Date(travelDate.value).toLocaleDateString('en-IN');
+            const trainClass = document.getElementById('trainClass').options[document.getElementById('trainClass').selectedIndex].text;
+            const passengers = document.getElementById('passengers').value;
+            const totalAmount = document.getElementById('totalPrice').textContent;
+            
+            document.getElementById('summaryRoute').textContent = `${from} → ${to}`;
+            document.getElementById('summaryDate').textContent = date;
+            document.getElementById('summaryClass').textContent = trainClass;
+            document.getElementById('summaryPassengers').textContent = passengers;
+            document.getElementById('summaryAmount').textContent = `₹${totalAmount}`;
+            
+            successMessage.textContent = '✓ Booking search completed! Showing available trains...';
+            successMessage.classList.add('show');
+            bookingSummary.classList.add('show');
+        }
+        
+        // Initialize
+        setMinDate();
+    </script>
+</body>
+</html>

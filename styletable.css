@@ -1,0 +1,36 @@
+
+      /*1. name selector */
+    table, th, td {
+      border-collapse: collapse;
+      padding: 10px;
+      border: 2px dashed black;
+    }
+    /* th {
+      background-color: lightblue;
+    } */
+    td {
+      background-color: lightgray;
+    }
+    /* id selector */
+    #hello {
+      background-color: yellow;
+    }
+    /* class selector */
+    
+    .table1 {
+      width: 100%;
+      margin: auto;
+      border: 0px solid red;
+    }
+    #second {
+      font-weight: bold;
+    }
+  .para1 {
+
+    background-color: grey;
+  }
+  .para1 p {
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+  }
